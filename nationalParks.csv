@@ -1,0 +1,21 @@
+parkid,parkname,area_km2,yearestablished,coordinates,speciesid,engname,latname,countrycode,countryname,region,website
+11,Breheimen,1671,2009,"(61.7195,7.0967)",1,Golden eagle,Aquila chrysaetos,no,Norway,Innlandet and Vestland counties,https://www.norgesnasjonalparker.no/en/nationalparks/breheimen/
+11,Breheimen,1671,2009,"(61.7195,7.0967)",2,Eurasian Elk,Alces alces,no,Norway,Innlandet and Vestland counties,https://www.norgesnasjonalparker.no/en/nationalparks/breheimen/
+12,Grand Canyon,4926,1919,"(36.055261,-112.121836)",3,Pinyon pine,Pinus monophylla,us,United States,Arizona,https://www.nps.gov/grca/index.htm
+12,Grand Canyon,4926,1919,"(36.055261,-112.121836)",4,Grand Canyon rattlesnake,Crotalus oreganus abyssus,us,United States,Arizona,https://www.nps.gov/grca/index.htm
+13,Plitvice Lakes,297,1979,"(44.880556,15.616111)",5,Lady's slipper orchid,Cypripedium calceolus,hr,Croatia,Lika-Senj county,https://np-plitvicka-jezera.hr/
+13,Plitvice Lakes,297,1979,"(44.880556,15.616111)",6,Nose-horned viper,Vipera ammodytes,hr,Croatia,Lika-Senj county,https://np-plitvicka-jezera.hr/
+14,Banff,6641,1885,"(51.5,-116)",7,Bull trout,Salvelinus confluentus,ca,Canada,Alberta,https://parks.canada.ca/pn-np/ab/banff
+14,Banff,6641,1885,"(51.5,-116)",8,Plains bison,Bison bison bison,ca,Canada,Alberta,https://parks.canada.ca/pn-np/ab/banff
+15,Serengeti,14763,1940,"(-2.333333,34.566667)",9,African leopard,Panthera pardus pardus,tz,Tanzania,Mara and Simiyu regions,https://www.serengeti.com/
+15,Serengeti,14763,1940,"(-2.333333,34.566667)",10,Sausage Tree,Kigelia africana,tz,Tanzania,Mara and Simiyu regions,https://www.serengeti.com/
+16,Khao Sok,739,1980,"(8.936667,98.530278)",11,Malayan tapir,Tapirus indicus,th,Thailand,Surat Thani province,https://www.tourismthailand.org/Attraction/khao-sok-national-park
+16,Khao Sok,739,1980,"(8.936667,98.530278)",12,Centipede,Scolopendra cataracta,th,Thailand,Surat Thani province,https://www.tourismthailand.org/Attraction/khao-sok-national-park
+17,Jasper,10878,1907,"(52.8,-117.9)",13,Grizzly bear,Ursus arctos horribilis,ca,Canada,Alberta,https://parks.canada.ca/pn-np/ab/jasper
+17,Jasper,10878,1907,"(52.8,-117.9)",14,Orange agoseris,Agoseris aurantiaca,ca,Canada,Alberta,https://parks.canada.ca/pn-np/ab/jasper
+18,Torres del Paine,1814,1959,"(-51,-73)",15,South American gray fox,Lycalopex griseus,cl,Chile,Magallanes Region,https://torresdelpaine.com/en/what-to-visit/torres-del-paine-national-park/
+18,Torres del Paine,1814,1959,"(-51,-73)",16,Chilean firebush,Embothrium coccineum,cl,Chile,Magallanes Region,https://torresdelpaine.com/en/what-to-visit/torres-del-paine-national-park/
+19,Kruger,19623,1926,"(-24.011389,31.485278)",17,Harlequin quail,Coturnix delegorguei,za,South Africa,Limpopo and Mpumalanga provinces,https://www.sanparks.org/parks/kruger
+19,Kruger,19623,1926,"(-24.011389,31.485278)",18,Mopane,Colophospermum mopane,za,South Africa,Limpopo and Mpumalanga provinces,https://www.sanparks.org/parks/kruger
+20,Arches,310,1971,"(38.728056,-109.54)",19,Desert bighorn sheep,Ovis canadensis nelsoni,us,United States,Utah,https://www.nps.gov/arch/index.htm
+20,Arches,310,1971,"(38.728056,-109.54)",20,Black-tailed jackrabbit,Lepus californicus,us,United States,Utah,https://www.nps.gov/arch/index.htm
