@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Parks - Datatable</title>
+</head>
+<body>
+    <a href="/index">home</a><br>
+    <form action="/datatable/filter" method="get">
+        <label for="sf">Search field</label><br>
+        <input id="sf" type="text" name="searchField"><br>
+        <span>data will be searched by this value</span><br>
+        <select id="attChoose" name="attributeChooser">
+            <option value="" selected hidden>Choose a search field</option>
+            <option value="wildcard">All fields (wildcard)</option>
+        <% attributes.forEach(attribute => { %>
+            <option value="<%= attribute %>"><%= attribute %></option>
+        <% }) %>
+        </select><br>
+        <input type="submit" value="Submit">
+    </form>
+    <a href="/datatable/filtered/csv">CSV</a>
+    <a href="/datatable/filtered/json">JSON</a>
+    <table>
+        <tr>
+        <% attributes.forEach(attribute => { %>
+            <th><%= attribute %></th>
+        <% }) %>
+        </tr>
+    <% table.forEach(row => { %>
+        <tr>
+        <% attributes.forEach(attribute => { %>
+        <% if (attribute == 'coordinates') { %>
+            <td><%= row[attribute].x %>, <%= row[attribute].y %></td>
+        <% } else { %>
+            <td><%= row[attribute] %></td>
+        <% } %>
+        <% }) %>
+        </tr>
+    <% }) %>
+    </table>
+</body>
+</html>
