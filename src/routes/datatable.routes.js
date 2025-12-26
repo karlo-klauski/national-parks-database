@@ -1,45 +1,87 @@
 const express = require('express');
 const db = require('../db/db');
+const { Parser } = require('json2csv');
 
 const router = express.Router();
-var attributes;
-var filterBy, filterStr;
+
+async function getAttributes() {
+    let colNames = await db.query('SELECT column_name FROM information_schema.columns WHERE table_name=\'cumulative\'');
+    return colNames.rows.map(object => object["column_name"]);
+}
 
 router.get('/', async (req, res) => {
-    let colNames = await db.query('SELECT column_name FROM information_schema.columns WHERE table_name=\'cumulative\'');
-    attributes = colNames.rows.map(object => object["column_name"]);
+    let attributes = await getAttributes();
 
     let queryResult = await db.query('SELECT * FROM cumulative');
     let table = queryResult.rows;
 
-    res.render('datatable', { attributes, table });
+    res.render('datatable', { attributes, table, query: req.query});
 });
 
 router.get('/filter', async (req, res) => {
-    await db.query(`DROP VIEW IF EXISTS temp`);
+    let attributes = await getAttributes();
+    let filterStr = req.query.filterStr || '';
+    let filterBy = req.query.filterBy || 'wildcard';
 
-    filterBy = req.query.attributeChooser
-    filterStr = req.query.searchField
+    let queryResult;
     if (filterStr == '') {
-        await db.query(`CREATE VIEW temp AS SELECT * FROM cumulative`);
-    } else if (filterBy == 'wildcard' || filterBy == '') {
+        queryResult = await db.query(`SELECT * FROM cumulative`);
+    } else if (filterBy == 'wildcard') {
         let conditions = attributes.map(attr => `${attr}::text LIKE '%${filterStr}%'`).join(' OR ');
-        await db.query(`CREATE VIEW temp AS SELECT * FROM cumulative WHERE ${conditions}`)
+        queryResult = await db.query(`SELECT * FROM cumulative WHERE ${conditions}`);
     } else {
-        await db.query(`CREATE VIEW temp AS SELECT * FROM cumulative WHERE ${filterBy}::text LIKE '%${filterStr}%'`)
+        queryResult = await db.query(`SELECT * FROM cumulative WHERE ${filterBy}::text LIKE '%${filterStr}%'`);    
     }
-    let queryResult = await db.query(`SELECT * FROM temp`);
     let table = queryResult.rows;
 
-    res.render('datatable', {attributes, table});
+    res.render('datatable', {attributes, table, query: req.query});
 });
 
 router.get('/filtered/json', async (req, res) => {
-    // TODO
+    let attributes = await getAttributes();
+    let filterStr = req.query.filterStr || '';
+    let filterBy = req.query.filterBy || 'wildcard';
+
+    if (filterStr == '') {
+        var query = `SELECT * FROM cumulative`;
+    } else if (filterBy == 'wildcard') {
+        let conditions = attributes.map(attr => `${attr}::text LIKE '%${filterStr}%'`).join(' OR ');
+        var query = `SELECT * FROM cumulative WHERE ${conditions}`;
+    } else {
+        var query = `SELECT * FROM cumulative WHERE ${filterBy}::text LIKE '%${filterStr}%'` 
+    }
+
+    var queryResult = await db.query(`SELECT json_agg(cumulative) FROM (${query}) cumulative;`);
+    let dataArray = queryResult.rows[0].json_agg;
+
+    res.header('Content-Type', 'application/json');
+    res.attachment('parks_filtered.json');
+    res.json(dataArray);
 });
 
 router.get('/filtered/csv', async (req, res) => {
-    // TODO
+    let attributes = await getAttributes();
+    let filterStr = req.query.filterStr || '';
+    let filterBy = req.query.filterBy || 'wildcard';
+
+    if (filterStr == '') {
+        var query = `SELECT * FROM cumulative`;
+    } else if (filterBy == 'wildcard') {
+        let conditions = attributes.map(attr => `${attr}::text LIKE '%${filterStr}%'`).join(' OR ');
+        var query = `SELECT * FROM cumulative WHERE ${conditions}`;
+    } else {
+        var query = `SELECT * FROM cumulative WHERE ${filterBy}::text LIKE '%${filterStr}%'` 
+    }
+
+    var queryResult = await db.query(query);
+    let dataArray = queryResult.rows
+
+    const json2csvParser = new Parser();
+    const csv = json2csvParser.parse(dataArray);
+
+    res.header('Content-Type', 'text/csv');
+    res.attachment('parks_filtered.csv');
+    res.send(csv);
 });
 
 module.exports = router;
