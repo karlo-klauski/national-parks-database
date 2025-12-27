@@ -6,6 +6,7 @@ const db = require('./src/db/db');
 
 const indexRoutes = require('./src/routes/index.routes.js');
 const datatableRoutes = require('./src/routes/datatable.routes.js');
+const lab3routes = require('./src/routes/lab3.routes.js');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/index', indexRoutes);
 app.use('/datatable', datatableRoutes);
+app.use('/', lab3routes);
 
 app.get('/', (req, res) => { 
     res.redirect('index');
