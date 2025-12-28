@@ -15,9 +15,11 @@ app.set('views', path.join(__dirname, 'src/views'));  // source folder for views
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(express.json());
+
 app.use('/index', indexRoutes);
 app.use('/datatable', datatableRoutes);
-app.use('/', lab3routes);
+app.use('/api', lab3routes);
 
 app.get('/', (req, res) => { 
     res.redirect('index');
