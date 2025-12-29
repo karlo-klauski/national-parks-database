@@ -6,7 +6,7 @@ const db = require('./src/db/db');
 
 const indexRoutes = require('./src/routes/index.routes.js');
 const datatableRoutes = require('./src/routes/datatable.routes.js');
-const lab3routes = require('./src/routes/lab3.routes.js');
+const APIroutes = require('./src/routes/api.routes.js');
 
 const app = express();
 
@@ -19,11 +19,19 @@ app.use(express.json());
 
 app.use('/index', indexRoutes);
 app.use('/datatable', datatableRoutes);
-app.use('/api', lab3routes);
+app.use('/api', APIroutes);
 
 app.get('/', (req, res) => { 
     res.redirect('index');
 })
+
+app.use((req, res) => {
+    res.status(404).json({
+        status: 'Not found',
+        message: 'endpoint not found',
+        response: null
+    });
+});
 
 const PORT = process.env.PORT ||5000;
 app.listen(PORT, async () => {
