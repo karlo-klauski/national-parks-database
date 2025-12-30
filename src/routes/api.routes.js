@@ -77,42 +77,6 @@ router.get('/parks', async (req, res) => {
     }
 });
 
-router.get('/parks/:id', async (req, res) => {
-    const id = Number(req.params.id)
-    if (!Number.isInteger(id))
-        return res.status(400).json({ 
-            status: 'Bad request',
-            message: 'invalid ID provided',
-            response: null 
-        });
-
-    const query = `${singleQuery} WHERE id = ${id}`;
-
-    try {
-        const queryResult = await db.query(query);
-        const data = queryResult.rows[0].data;
-        if (!data)
-            return res.status(404).json({
-                status: 'Not Found',
-                message: `park with id ${id} not found`,
-                response: null
-            }); 
-
-        res.header('Content-Type', 'application/json');
-        res.status(200).json({
-            status: 'OK',
-            message: `fetched park with id ${id}`,
-            response: data
-        });
-    } catch (err) {
-        res.status(500).json({
-            status: 'Internal server error',
-            message: 'Failed to fetch park',
-            response: null
-        });
-    }
-});
-
 router.post('/parks', async (req, res) => {
     const { name, area_km2, yearEstablished, coordinates, countryCode, region = null, website = null } = req.body
     const x = coordinates?.x;
@@ -145,6 +109,42 @@ router.post('/parks', async (req, res) => {
         res.status(500).json({
             status: 'Internal server error',
             message: 'Failed to create park',
+            response: null
+        });
+    }
+});
+
+router.get('/parks/:id', async (req, res) => {
+    const id = Number(req.params.id)
+    if (!Number.isInteger(id))
+        return res.status(400).json({ 
+            status: 'Bad request',
+            message: 'invalid ID provided',
+            response: null 
+        });
+
+    const query = `${singleQuery} WHERE id = ${id}`;
+
+    try {
+        const queryResult = await db.query(query);
+        const data = queryResult.rows[0].data;
+        if (!data)
+            return res.status(404).json({
+                status: 'Not Found',
+                message: `park with id ${id} not found`,
+                response: null
+            }); 
+
+        res.header('Content-Type', 'application/json');
+        res.status(200).json({
+            status: 'OK',
+            message: `fetched park with id ${id}`,
+            response: data
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 'Internal server error',
+            message: 'Failed to fetch park',
             response: null
         });
     }
@@ -332,7 +332,7 @@ router.get('/parkSpecies/:parkID', async (req, res) => {
         if (!data)
             return res.status(404).json({
                 status: 'Not Found',
-                message: `park with id ${parkID} not found`,
+                message: `no species found living in park with ID ${parkID}`,
                 response: null
             }); 
 

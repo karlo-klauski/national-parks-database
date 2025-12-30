@@ -155,8 +155,122 @@
               }
             }
           },
+          "400": {
+            "description": "post unsuccessful, some mandatory fields are missing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "some mandatory fields missing"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "post unsuccessful, internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to create park"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/parks/{id}": {
+      "get": {
+        "summary": "get park from collection by ID",
+        "description": "returns a single park",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the park",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "fetched park with id ..."
+                    },
+                    "response": {
+                      "$ref": "./schema.json#/items"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request, invalid park ID is provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "invalid ID provided"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
-            "description": "fetch unsuccessful, no parks found",
+            "description": "fetch unsuccessful, requested park isn't found",
             "content": {
               "application/json": {
                 "schema": {
@@ -169,7 +283,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "there are no parks in the database"
+                      "example": "park with id ... not found"
                     },
                     "response": {
                       "type": "null"
@@ -193,7 +307,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Failed to fetch all data"
+                      "example": "Failed to fetch park"
                     },
                     "response": {
                       "type": "null"
@@ -205,18 +319,556 @@
           }
         }
       },
-    },
-    "/api/parks/{id}": {
-
+      "put": {
+        "summary": "update an existing park",
+        "description": "an existing park is updated and the park object is returned",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the park",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "requestBody": {
+          "description": "params to update an existing park with",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "area_km2": { "type": "number" },
+                  "yearEstablished": { "type": "number" },
+                  "coordinates": {
+                    "type": "object",
+                    "properties": {
+                      "x": { "type": "number" },
+                      "y": { "type": "number" }
+                    },
+                    "required": ["x", "y"]
+                  },
+                  "countryCode": { "type": "string" },
+                  "region": { "type": ["string", "null"] },
+                  "website": { "type": ["string", "null"] }
+                },
+                "required": [
+                  "name",
+                  "area_km2",
+                  "yearEstablished",
+                  "coordinates",
+                  "countryCode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "park succesfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Updated"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "park updated"
+                    },
+                    "response": {
+                      "$ref": "./schema.json#/items"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "put unsuccessful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                },
+                "examples": {
+                  "missing-fields": {
+                    "value": {
+                      "status": "Bad Request",
+                      "message": "Missing mandatory fields",
+                      "response": null
+                    }
+                  },
+                  "invalid-coordinates": {
+                    "value": {
+                      "status": "Bad Request",
+                      "message": "Invalid ID provided",
+                      "response": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "post unsuccessful, internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to update park"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete park",
+        "description": "an existing park is deleted and the deleted object is returned",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the park",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "park succesfully deleted"
+          },
+          "400": {
+            "description": "delete unsuccessful, invalid ID provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "invalid ID provided"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "delete unsuccessful, internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to delete park"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/api/countries/{code}": {
-
+      "get": {
+        "summary": "get country from collection by country code",
+        "description": "returns a single country",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "2 character ISO code of country",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "fetched country"
+                    },
+                    "response": {
+                      "type": "object",
+                      "properties": {
+                        "countryCode": { "type": "string" },
+                        "countryName": { "type": "string" }
+                      },
+                      "required": [ "countryCode", "countryName" ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request, invalid code length",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "invalid length of provided code"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "fetch unsuccessful, country not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "country with code ... not found"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "fetch unsuccessful, internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to fetch country"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/api/species/{id}": {
-
+      "get": {
+        "summary": "get species from collection by species ID",
+        "description": "returns a single species",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "species ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "fetched species"
+                    },
+                    "response": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "integer" },
+                        "englishName": { "type": "string" },
+                        "latinName": { "type": "string" }
+                      },
+                      "required": [ "id", "englishName", "latinName" ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request, invalid ID provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "invalid ID provided"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "fetch unsuccessful, species not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "species with ID ... not found"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "fetch unsuccessful, internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to fetch species"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/api/parkSpecies/{parkID}": {
-
+      "get": {
+        "summary": "get species living in the park via parkID",
+        "description": "returns a list of species",
+        "parameters": [
+          {
+            "name": "parkID",
+            "in": "path",
+            "description": "park ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "fetched species living in the park with id ..."
+                    },
+                    "response": {
+                      "$ref": "./schema.json#/items/properties/species"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request, invalid ID provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "invalid park ID provided"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "fetch unsuccessful, no species are found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "no species found living in park with ID ..."
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "fetch unsuccessful, internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to fetch species"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
