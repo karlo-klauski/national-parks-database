@@ -1,232 +1,209 @@
 [
     {
-        "parkID": 11,
-        "region": "Innlandet and Vestland counties",
-        "species": [
-            {
-                "engName": "Golden eagle",
-                "latName": "Aquila chrysaetos",
-                "speciesID": 1
-            },
-            {
-                "engName": "Eurasian Elk",
-                "latName": "Alces alces",
-                "speciesID": 2
-            }
-        ],
-        "website": "https://www.norgesnasjonalparker.no/en/nationalparks/breheimen/",
-        "area_km2": 1671,
-        "parkName": "Breheimen",
-        "coordinates": "(61.7195,7.0967)",
-        "countryCode": "no",
-        "countryName": "Norway",
-        "yearEstablished": 2009
+      "parkID": 1,
+      "parkName": "Breheimen",
+      "area_km2": 1671,
+      "yearEstablished": 2009,
+      "coordinates": "(61.7195,7.0967)",
+      "countryCode": "no",
+      "countryName": "Norway",
+      "region": "Innlandet and Vestland counties",
+      "species": [
+        {
+          "speciesID": 1,
+          "engName": "Golden eagle",
+          "latName": "Aquila chrysaetos"
+        },
+        {
+          "speciesID": 2,
+          "engName": "Eurasian Elk",
+          "latName": "Alces alces"
+        }
+      ],
+      "website": "https://www.norgesnasjonalparker.no/en/nationalparks/breheimen/"
     },
     {
-        "parkID": 12,
-        "region": "Arizona",
-        "species": [
-            {
-                "engName": "Pinyon pine",
-                "latName": "Pinus monophylla",
-                "speciesID": 3
-            },
-            {
-                "engName": "Grand Canyon rattlesnake",
-                "latName": "Crotalus oreganus abyssus",
-                "speciesID": 4
-            }
-        ],
-        "website": "https://www.nps.gov/grca/index.htm",
-        "area_km2": 4926,
-        "parkName": "Grand Canyon",
-        "coordinates": "(36.055261,-112.121836)",
-        "countryCode": "us",
-        "countryName": "United States",
-        "yearEstablished": 1919
+      "parkID": 3,
+      "parkName": "Plitvice Lakes",
+      "area_km2": 297,
+      "yearEstablished": 1979,
+      "coordinates": "(44.880556,15.616111)",
+      "countryCode": "hr",
+      "countryName": "Croatia",
+      "region": "Lika-Senj county",
+      "species": [
+        {
+          "speciesID": 5,
+          "engName": "Lady's slipper orchid",
+          "latName": "Cypripedium calceolus"
+        },
+        {
+          "speciesID": 6,
+          "engName": "Nose-horned viper",
+          "latName": "Vipera ammodytes"
+        }
+      ],
+      "website": "https://np-plitvicka-jezera.hr/"
     },
     {
-        "parkID": 13,
-        "region": "Lika-Senj county",
-        "species": [
-            {
-                "engName": "Lady's slipper orchid",
-                "latName": "Cypripedium calceolus",
-                "speciesID": 5
-            },
-            {
-                "engName": "Nose-horned viper",
-                "latName": "Vipera ammodytes",
-                "speciesID": 6
-            }
-        ],
-        "website": "https://np-plitvicka-jezera.hr/",
-        "area_km2": 297,
-        "parkName": "Plitvice Lakes",
-        "coordinates": "(44.880556,15.616111)",
-        "countryCode": "hr",
-        "countryName": "Croatia",
-        "yearEstablished": 1979
+      "parkID": 4,
+      "parkName": "Banff",
+      "area_km2": 6641,
+      "yearEstablished": 1885,
+      "coordinates": "(51.5,-116)",
+      "countryCode": "ca",
+      "countryName": "Canada",
+      "region": "Alberta",
+      "species": [
+        {
+          "speciesID": 7,
+          "engName": "Bull trout",
+          "latName": "Salvelinus confluentus"
+        },
+        {
+          "speciesID": 8,
+          "engName": "Plains bison",
+          "latName": "Bison bison bison"
+        }
+      ],
+      "website": "https://parks.canada.ca/pn-np/ab/banff"
     },
     {
-        "parkID": 14,
-        "region": "Alberta",
-        "species": [
-            {
-                "engName": "Bull trout",
-                "latName": "Salvelinus confluentus",
-                "speciesID": 7
-            },
-            {
-                "engName": "Plains bison",
-                "latName": "Bison bison bison",
-                "speciesID": 8
-            }
-        ],
-        "website": "https://parks.canada.ca/pn-np/ab/banff",
-        "area_km2": 6641,
-        "parkName": "Banff",
-        "coordinates": "(51.5,-116)",
-        "countryCode": "ca",
-        "countryName": "Canada",
-        "yearEstablished": 1885
+      "parkID": 5,
+      "parkName": "Serengeti",
+      "area_km2": 14763,
+      "yearEstablished": 1940,
+      "coordinates": "(-2.333333,34.566667)",
+      "countryCode": "tz",
+      "countryName": "Tanzania",
+      "region": "Mara and Simiyu regions",
+      "species": [
+        {
+          "speciesID": 9,
+          "engName": "African leopard",
+          "latName": "Panthera pardus pardus"
+        },
+        {
+          "speciesID": 10,
+          "engName": "Sausage Tree",
+          "latName": "Kigelia africana"
+        }
+      ],
+      "website": "https://www.serengeti.com/"
     },
     {
-        "parkID": 15,
-        "region": "Mara and Simiyu regions",
-        "species": [
-            {
-                "engName": "African leopard",
-                "latName": "Panthera pardus pardus",
-                "speciesID": 9
-            },
-            {
-                "engName": "Sausage Tree",
-                "latName": "Kigelia africana",
-                "speciesID": 10
-            }
-        ],
-        "website": "https://www.serengeti.com/",
-        "area_km2": 14763,
-        "parkName": "Serengeti",
-        "coordinates": "(-2.333333,34.566667)",
-        "countryCode": "tz",
-        "countryName": "Tanzania",
-        "yearEstablished": 1940
+      "parkID": 6,
+      "parkName": "Khao Sok",
+      "area_km2": 739,
+      "yearEstablished": 1980,
+      "coordinates": "(8.936667,98.530278)",
+      "countryCode": "th",
+      "countryName": "Thailand",
+      "region": "Surat Thani province",
+      "species": [
+        {
+          "speciesID": 11,
+          "engName": "Malayan tapir",
+          "latName": "Tapirus indicus"
+        },
+        {
+          "speciesID": 12,
+          "engName": "Centipede",
+          "latName": "Scolopendra cataracta"
+        }
+      ],
+      "website": "https://www.tourismthailand.org/Attraction/khao-sok-national-park"
     },
     {
-        "parkID": 16,
-        "region": "Surat Thani province",
-        "species": [
-            {
-                "engName": "Malayan tapir",
-                "latName": "Tapirus indicus",
-                "speciesID": 11
-            },
-            {
-                "engName": "Centipede",
-                "latName": "Scolopendra cataracta",
-                "speciesID": 12
-            }
-        ],
-        "website": "https://www.tourismthailand.org/Attraction/khao-sok-national-park",
-        "area_km2": 739,
-        "parkName": "Khao Sok",
-        "coordinates": "(8.936667,98.530278)",
-        "countryCode": "th",
-        "countryName": "Thailand",
-        "yearEstablished": 1980
+      "parkID": 7,
+      "parkName": "Jasper",
+      "area_km2": 10878,
+      "yearEstablished": 1907,
+      "coordinates": "(52.8,-117.9)",
+      "countryCode": "ca",
+      "countryName": "Canada",
+      "region": "Alberta",
+      "species": [
+        {
+          "speciesID": 13,
+          "engName": "Grizzly bear",
+          "latName": "Ursus arctos horribilis"
+        },
+        {
+          "speciesID": 14,
+          "engName": "Orange agoseris",
+          "latName": "Agoseris aurantiaca"
+        }
+      ],
+      "website": "https://parks.canada.ca/pn-np/ab/jasper"
     },
     {
-        "parkID": 17,
-        "region": "Alberta",
-        "species": [
-            {
-                "engName": "Grizzly bear",
-                "latName": "Ursus arctos horribilis",
-                "speciesID": 13
-            },
-            {
-                "engName": "Orange agoseris",
-                "latName": "Agoseris aurantiaca",
-                "speciesID": 14
-            }
-        ],
-        "website": "https://parks.canada.ca/pn-np/ab/jasper",
-        "area_km2": 10878,
-        "parkName": "Jasper",
-        "coordinates": "(52.8,-117.9)",
-        "countryCode": "ca",
-        "countryName": "Canada",
-        "yearEstablished": 1907
+      "parkID": 8,
+      "parkName": "Torres del Paine",
+      "area_km2": 1814,
+      "yearEstablished": 1959,
+      "coordinates": "(-51,-73)",
+      "countryCode": "cl",
+      "countryName": "Chile",
+      "region": "Magallanes Region",
+      "species": [
+        {
+          "speciesID": 15,
+          "engName": "South American gray fox",
+          "latName": "Lycalopex griseus"
+        },
+        {
+          "speciesID": 16,
+          "engName": "Chilean firebush",
+          "latName": "Embothrium coccineum"
+        }
+      ],
+      "website": "https://torresdelpaine.com/en/what-to-visit/torres-del-paine-national-park/"
     },
     {
-        "parkID": 18,
-        "region": "Magallanes Region",
-        "species": [
-            {
-                "engName": "South American gray fox",
-                "latName": "Lycalopex griseus",
-                "speciesID": 15
-            },
-            {
-                "engName": "Chilean firebush",
-                "latName": "Embothrium coccineum",
-                "speciesID": 16
-            }
-        ],
-        "website": "https://torresdelpaine.com/en/what-to-visit/torres-del-paine-national-park/",
-        "area_km2": 1814,
-        "parkName": "Torres del Paine",
-        "coordinates": "(-51,-73)",
-        "countryCode": "cl",
-        "countryName": "Chile",
-        "yearEstablished": 1959
+      "parkID": 9,
+      "parkName": "Kruger",
+      "area_km2": 19623,
+      "yearEstablished": 1926,
+      "coordinates": "(-24.011389,31.485278)",
+      "countryCode": "za",
+      "countryName": "South Africa",
+      "region": "Limpopo and Mpumalanga provinces",
+      "species": [
+        {
+          "speciesID": 17,
+          "engName": "Harlequin quail",
+          "latName": "Coturnix delegorguei"
+        },
+        {
+          "speciesID": 18,
+          "engName": "Mopane",
+          "latName": "Colophospermum mopane"
+        }
+      ],
+      "website": "https://www.sanparks.org/parks/kruger"
     },
     {
-        "parkID": 19,
-        "region": "Limpopo and Mpumalanga provinces",
-        "species": [
-            {
-                "engName": "Harlequin quail",
-                "latName": "Coturnix delegorguei",
-                "speciesID": 17
-            },
-            {
-                "engName": "Mopane",
-                "latName": "Colophospermum mopane",
-                "speciesID": 18
-            }
-        ],
-        "website": "https://www.sanparks.org/parks/kruger",
-        "area_km2": 19623,
-        "parkName": "Kruger",
-        "coordinates": "(-24.011389,31.485278)",
-        "countryCode": "za",
-        "countryName": "South Africa",
-        "yearEstablished": 1926
-    },
-    {
-        "parkID": 20,
-        "region": "Utah",
-        "species": [
-            {
-                "engName": "Desert bighorn sheep",
-                "latName": "Ovis canadensis nelsoni",
-                "speciesID": 19
-            },
-            {
-                "engName": "Black-tailed jackrabbit",
-                "latName": "Lepus californicus",
-                "speciesID": 20
-            }
-        ],
-        "website": "https://www.nps.gov/arch/index.htm",
-        "area_km2": 310,
-        "parkName": "Arches",
-        "coordinates": "(38.728056,-109.54)",
-        "countryCode": "us",
-        "countryName": "United States",
-        "yearEstablished": 1971
+      "parkID": 2,
+      "parkName": "Grand Canyon",
+      "area_km2": 5000,
+      "yearEstablished": 1919,
+      "coordinates": "(-36.055261,112.121836)",
+      "countryCode": "us",
+      "countryName": "United States",
+      "region": null,
+      "species": [
+        {
+          "speciesID": 3,
+          "engName": "Pinyon pine",
+          "latName": "Pinus monophylla"
+        },
+        {
+          "speciesID": 4,
+          "engName": "Grand Canyon rattlesnake",
+          "latName": "Crotalus oreganus abyssus"
+        }
+      ],
+      "website": null
     }
-]
+  ]
