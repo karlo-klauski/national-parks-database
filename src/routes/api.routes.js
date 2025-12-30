@@ -4,7 +4,32 @@ const { Parser } = require('json2csv');
 
 const router = express.Router();
 
-const baseQuery = `
+const singleQuery = `
+    SELECT json_build_object(
+        'parkID', id,
+        'parkName', name,
+        'area_km2', area_km2,
+        'yearEstablished', yearEstablished,
+        'coordinates', coordinates,
+        'countryCode', countryCode,
+        'countryName', (
+            SELECT name
+            FROM country
+            WHERE country.code = np.countryCode
+        ),
+        'region', region,
+        'species', (
+            SELECT json_agg(json_build_object('speciesID', speciesID, 'engName', engName, 'latName', latName))
+            FROM species
+                JOIN harboursSpecies 
+                    ON species.id = harboursSpecies.speciesID
+            WHERE np.id = harboursSpecies.parkID
+        ),
+        'website', website
+    ) data
+    FROM nationalPark np`;
+
+const multiQuery = `
     SELECT json_agg(
         json_build_object(
             'parkID', id,
@@ -34,7 +59,7 @@ const baseQuery = `
 
 router.get('/parks', async (req, res) => {
     try {
-        const queryResult = await db.query(baseQuery);
+        const queryResult = await db.query(multiQuery);
         const data = queryResult.rows[0].data;
 
         res.header('Content-Type', 'application/json');
@@ -61,7 +86,7 @@ router.get('/parks/:id', async (req, res) => {
             response: null 
         });
 
-    const query = baseQuery + `WHERE id = ${id}`;
+    const query = `${singleQuery} WHERE id = ${id}`;
 
     try {
         const queryResult = await db.query(query);
@@ -107,7 +132,7 @@ router.post('/parks', async (req, res) => {
         `, [name, area_km2, yearEstablished, x, y, countryCode, region, website]);
         const id = rows[0].id;
 
-        const query = baseQuery + `WHERE id = ${id}`;
+        const query = `${singleQuery} WHERE id = ${id}`;
         const queryResult = await db.query(query);
         const data = queryResult.rows[0].data;
 
@@ -153,7 +178,7 @@ router.put('/parks/:id', async (req, res) => {
             WHERE id = $9
         `, [name, area_km2, yearEstablished, x, y, countryCode, region, website, id]);
 
-        const query = baseQuery + `WHERE id = ${id}`;
+        const query = `${singleQuery} WHERE id = ${id}`;
         const queryResult = await db.query(query);
         const data = queryResult.rows[0].data;
 
@@ -182,7 +207,7 @@ router.delete('/parks/:id', async (req, res) => {
 
     try {
         // moramo dohvatiti park prije brisanja
-        const query = baseQuery + `WHERE id = ${id}`;
+        const query = `${singleQuery} WHERE id = ${id}`;
         const queryResult = await db.query(query);
         const data = queryResult.rows[0].data;
 
@@ -211,11 +236,9 @@ router.get('/countries/:code', async (req, res) => {
 
     try {
         const queryResult = await db.query(`
-            SELECT json_agg(
-                json_build_object(
-                    'countryCode', code,
-                    'countryName', name
-                )
+            SELECT json_build_object(
+                'countryCode', code,
+                'countryName', name
             ) data
             FROM country
             WHERE code = $1
@@ -255,12 +278,10 @@ router.get('/species/:id', async (req, res) => {
 
     try {
         const queryResult = await db.query(`
-            SELECT json_agg(
-                json_build_object(
-                    'id', id,
-                    'englishName', engName,
-                    'latinName', latName
-                )
+            SELECT json_build_object(
+                'id', id,
+                'englishName', engName,
+                'latinName', latName
             ) data
             FROM species
             WHERE id = '${id}'
