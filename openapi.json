@@ -1,0 +1,222 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "national parks API overview",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Karlo Klauški",
+      "url": "https://github.com/karlo-klauski",
+      "email": "karlo.klauski@fer.hr"
+    },
+    "license": {
+      "name": "Creative Commons Zero v1.0 Universal",
+      "identifier": "CC0-1.0",
+      "url": "https://github.com/karlo-klauski/national-parks-database/blob/main/LICENSE"
+    }
+  },
+  "paths": {
+    "/api/parks": {
+      "get": {
+        "summary": "get the whole data collection",
+        "description": "returns an array of every national park in the database",
+        "responses": {
+          "200": {
+            "description": "fetch successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "fetched whole data collection"
+                    },
+                    "response": {
+                      "$ref": "./schema.json"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "fetch unsuccessful, no parks found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "there are no parks in the database"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "fetch unsuccessful, internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to fetch all data"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "create a new park",
+        "description": "a new park is created and the park object is returned",
+        "requestBody": {
+          "description": "park to add to the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "area_km2": { "type": "number" },
+                  "yearEstablished": { "type": "number" },
+                  "coordinates": {
+                    "type": "object",
+                    "properties": {
+                      "x": { "type": "number" },
+                      "y": { "type": "number" }
+                    },
+                    "required": ["x", "y"]
+                  },
+                  "countryCode": { "type": "string" },
+                  "region": { "type": ["string", "null"] },
+                  "website": { "type": ["string", "null"] }
+                },
+                "required": [
+                  "name",
+                  "area_km2",
+                  "yearEstablished",
+                  "coordinates",
+                  "countryCode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "park creation successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "OK"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "fetched whole data collection"
+                    },
+                    "response": {
+                      "$ref": "./schema.json#/items"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "fetch unsuccessful, no parks found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "there are no parks in the database"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "fetch unsuccessful, internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status", "message", "response"],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to fetch all data"
+                    },
+                    "response": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+    },
+    "/api/parks/{id}": {
+
+    },
+    "/api/countries/{code}": {
+
+    },
+    "/api/species/{id}": {
+
+    },
+    "/api/parkSpecies/{parkID}": {
+
+    }
+  }
+}
