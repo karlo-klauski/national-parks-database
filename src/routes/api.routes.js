@@ -1,6 +1,5 @@
 const express = require('express');
 const db = require('../db/db');
-const { Parser } = require('json2csv');
 
 const router = express.Router();
 
@@ -28,7 +27,6 @@ const singleQuery = `
         'website', website
     ) data
     FROM nationalPark np`;
-
 const multiQuery = `
     SELECT json_agg(
         json_build_object(
