@@ -37,13 +37,12 @@ app.use('/api', APIroutes);
 
 // req.isAuthenticated is provided from the auth router
 app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+  res.redirect('/index');
 });
 
 app.get('/profile', requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
-
 
 app.use((req, res) => {
     res.status(404).json({

@@ -9,6 +9,13 @@
     <h3>Data in other formats</h3>
     <a href="nationalParks.json">JSON</a>
     <a href="nationalParks.csv">CSV</a><br>
-    <a href="/datatable">explore data</a>
+    <a href="/datatable">explore data</a><br>
+    <% if (!isAuthenticated) { %>
+        <a href="/login">login</a>
+    <% } else { %>
+        <a href="/logout">logout</a><br>
+        <a href="#">user account</a><br>
+        <a href="#">refresh copies</a>
+    <% } %>
 </body>
 </html>
