@@ -1,10 +1,11 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs')  // file system
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const db = require('./src/db/db');
 const { auth } = require('express-openid-connect');
 const { requiresAuth } = require('express-openid-connect');
+const { stringify } = require('csv-stringify/sync');
 
 const indexRoutes = require('./src/routes/index.routes.js');
 const datatableRoutes = require('./src/routes/datatable.routes.js');
@@ -44,15 +45,30 @@ app.get('/profile', requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
-app.use((req, res) => {
-    res.status(404).json({
-        status: 'Not found',
-        message: 'endpoint not found',
-        response: null
-    });
+app.get('/refreshCopies', requiresAuth(), async (req, res) => {
+  const exportDir = path.join(process.cwd(), 'public');
+  fs.mkdirSync(exportDir, { recursive: true });
+
+  // CSV
+  const queryResult = await db.query(`SELECT * FROM cumulative`);
+  const csv = stringify(queryResult.rows, { header: true });
+  const filePath = path.join(exportDir, 'nationalParks.csv');
+  fs.writeFileSync(filePath, csv);
+
+  // JSON - TODO
+
+  res.redirect('/index');
 });
 
-const PORT = process.env.PORT ||5000;
+app.use((req, res) => {
+  res.status(404).json({
+    status: 'Not found',
+    message: 'endpoint not found',
+    response: null
+  });
+});
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   try {
     // Optional: test the connection once at startup
@@ -62,5 +78,5 @@ app.listen(PORT, async () => {
     console.error('Database connection error:', err);
   }
   console.log(
-  `Server started on port ${PORT}`)
+    `Server started on port ${PORT}`)
 });
