@@ -50,12 +50,46 @@ app.get('/refreshCopies', requiresAuth(), async (req, res) => {
   fs.mkdirSync(exportDir, { recursive: true });
 
   // CSV
-  const queryResult = await db.query(`SELECT * FROM cumulative`);
-  const csv = stringify(queryResult.rows, { header: true });
-  const filePath = path.join(exportDir, 'nationalParks.csv');
-  fs.writeFileSync(filePath, csv);
+  const queryResultCSV = await db.query(`SELECT * FROM cumulative`);
+  const csv = stringify(queryResultCSV.rows, { header: true });
+  const filePathCSV = path.join(exportDir, 'nationalParks.csv');
+  fs.writeFileSync(filePathCSV, csv);
 
   // JSON - TODO
+  const query = `
+    SELECT json_agg(
+      json_build_object(
+        'parkID', id,
+        'parkName', name,
+        'area_km2', area_km2,
+        'yearEstablished', yearEstablished,
+        'coordinates', coordinates,
+        'countryCode', countryCode,
+        'countryName', (
+          SELECT name
+          FROM country
+          WHERE country.code = np.countryCode
+        ),
+        'region', region,
+        'species', (
+          SELECT json_agg(json_build_object('speciesID', speciesID, 'engName', engName, 'latName', latName))
+          FROM species
+            JOIN harboursSpecies 
+              ON species.id = harboursSpecies.speciesID
+          WHERE np.id = harboursSpecies.parkID
+        ),
+        'website', website
+      )
+    ) data
+    FROM nationalPark np`;
+  const queryResultJSON = await db.query(query);
+  const data = queryResultJSON.rows[0].data;
+  const filePathJSON = path.join(exportDir, 'nationalParks.json');
+  fs.writeFileSync(
+    filePathJSON,
+    JSON.stringify(data),
+    'utf8'
+  );
 
   res.redirect('/index');
 });
