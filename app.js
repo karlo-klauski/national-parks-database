@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/profile', requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
+  res.status(200).json(req.oidc.user);
 });
 
 app.get('/refreshCopies', requiresAuth(), async (req, res) => {
