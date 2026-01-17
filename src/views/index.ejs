@@ -7,15 +7,15 @@
 </head>
 <body>
     <h1>Home</h1>
+    <a href="/datatable">datatable</a><br>
     <a href="nationalParks.json">JSON</a>
     <a href="nationalParks.csv">CSV</a><br>
-    <a href="/datatable">explore data</a><br>
     <% if (!isAuthenticated) { %>
-        <a href="/login">login</a>
+        <br><a href="/login">login</a>
     <% } else { %>
-        <a href="/logout">logout</a><br>
+        <a href="/refreshCopies">refresh copies</a><br><br>
         <a href="/profile">user account</a><br>
-        <a href="/refreshCopies">refresh copies</a>
+        <a href="/logout">logout</a>
     <% } %>
 </body>
 </html>
